@@ -19,4 +19,14 @@ usersRoutes.post(
   usersController.create,
 );
 
+usersRoutes.get(
+  '/:username',
+  celebrate({
+    [Segments.PARAMS]: {
+      username: Joi.string().required(),
+    },
+  }),
+  usersController.show,
+);
+
 export { usersRoutes };
