@@ -1,0 +1,5 @@
+{
+  "ext": "ts",
+  "exec": "ts-node-transpile-only --require tsconfig-paths/register ./src/shared/infra/http/server.ts",
+  "watch": "./src"
+}
