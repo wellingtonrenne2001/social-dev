@@ -1,3 +1,4 @@
+import { isAuthenticated } from '@shared/infra/http/middlewares/isAuthenticated';
 import { celebrate, Segments } from 'celebrate';
 import { Router } from 'express';
 import Joi from 'joi';
@@ -27,6 +28,20 @@ usersRoutes.get(
     },
   }),
   usersController.show,
+);
+
+usersRoutes.patch(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      fullName: Joi.string().optional(),
+      username: Joi.string().optional(),
+      email: Joi.string().email().optional(),
+      password: Joi.string().min(8).max(16).optional(),
+    },
+  }),
+  isAuthenticated,
+  usersController.update,
 );
 
 export { usersRoutes };

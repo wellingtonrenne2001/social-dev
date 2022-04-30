@@ -1,6 +1,8 @@
 import { ICreateUserDto } from '@modules/users/dtos/ICreateUserDto';
+import { IUpdateUserDto } from '@modules/users/dtos/IUpdateUserDto';
 import { CreateUserService } from '@modules/users/services/CreateUserService';
 import { ShowUserService } from '@modules/users/services/ShowUserService';
+import { UpdateUserService } from '@modules/users/services/UpdateUserService';
 import { instanceToInstance } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
@@ -20,6 +22,16 @@ class UsersController {
 
     const showUser = container.resolve(ShowUserService);
     const user = await showUser.execute(username);
+
+    return response.json(instanceToInstance(user));
+  }
+
+  async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.user;
+    const data: IUpdateUserDto = request.body;
+
+    const updateUser = container.resolve(UpdateUserService);
+    const user = await updateUser.execute(id, data);
 
     return response.json(instanceToInstance(user));
   }

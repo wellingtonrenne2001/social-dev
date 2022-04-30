@@ -16,7 +16,7 @@ class User implements IUser {
   @Column({ nullable: true })
   avatar: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Exclude()
