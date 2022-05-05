@@ -19,6 +19,10 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  async save(user: IUser): Promise<void> {
+    await this.repository.save(user);
+  }
+
   async findById(id: string): Promise<IUser | null> {
     const user = await this.repository.findOneBy({ id });
 
@@ -37,8 +41,8 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async save(user: IUser): Promise<void> {
-    await this.repository.save(user);
+  async delete(id: string) {
+    await this.repository.softDelete({ id });
   }
 }
 

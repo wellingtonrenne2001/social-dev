@@ -50,4 +50,6 @@ usersRoutes.patch(
 
 usersRoutes.patch('/avatar', isAuthenticated, upload.single('avatar'), usersController.updateAvatar);
 
+usersRoutes.delete('/', isAuthenticated, usersController.delete);
+
 export { usersRoutes };

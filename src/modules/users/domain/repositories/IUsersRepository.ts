@@ -3,10 +3,11 @@ import { IUser } from '../models/IUser';
 
 interface IUsersRepository {
   create(data: ICreateUserDto): Promise<IUser>;
+  save(user: IUser): Promise<void>;
   findById(id: string): Promise<IUser | null>;
   findByUsername(username: string): Promise<IUser | null>;
   findByEmail(email: string): Promise<IUser | null>;
-  save(user: IUser): Promise<void>;
+  delete(id: string): Promise<void>;
 }
 
 export { IUsersRepository };
