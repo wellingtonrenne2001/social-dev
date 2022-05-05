@@ -2,6 +2,7 @@ import { ICreateUserDto } from '@modules/users/dtos/ICreateUserDto';
 import { IUpdateUserDto } from '@modules/users/dtos/IUpdateUserDto';
 import { CreateUserService } from '@modules/users/services/CreateUserService';
 import { ShowUserService } from '@modules/users/services/ShowUserService';
+import { UpdateUserAvatarService } from '@modules/users/services/UpdateUserAvatarService';
 import { UpdateUserService } from '@modules/users/services/UpdateUserService';
 import { instanceToInstance } from 'class-transformer';
 import { Request, Response } from 'express';
@@ -32,6 +33,16 @@ class UsersController {
 
     const updateUser = container.resolve(UpdateUserService);
     const user = await updateUser.execute(id, data);
+
+    return response.json(instanceToInstance(user));
+  }
+
+  async updateAvatar(request: Request, response: Response): Promise<Response> {
+    const { id } = request.user;
+    const file = request.file as Express.Multer.File;
+
+    const updateUserAvatar = container.resolve(UpdateUserAvatarService);
+    const user = await updateUserAvatar.execute(id, file.filename);
 
     return response.json(instanceToInstance(user));
   }
