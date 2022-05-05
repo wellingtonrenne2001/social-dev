@@ -27,6 +27,8 @@ class UpdateUserService {
     user.password = data.password ? await hash(data.password, 8) : user.password;
 
     await this.usersRepository.save(user);
+
+    return user;
   }
 }
 
